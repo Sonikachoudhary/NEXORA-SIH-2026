@@ -1,16 +1,51 @@
-# React + Vite
+# NEXORA — AI-Powered Criminal Network Analysis System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> Smart India Hackathon 2026 | SIH26189
 
-Currently, two official plugins are available:
+NEXORA is an AI-powered investigation intelligence platform designed to help authorized investigators analyze relationships between cases, people, vehicles, locations, communications and other entities.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The platform transforms fragmented investigation data into an interactive network view, helping investigators identify possible connections and patterns for further review.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎯 Problem Statement
 
-## Expanding the Oxlint configuration
+Investigation data is often distributed across multiple sources such as:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- Criminal cases
+- People and entities
+- Communication records
+- Locations
+- Vehicles
+- Other related records
+
+Manually identifying relationships between these entities can be difficult and time-consuming.
+
+NEXORA aims to provide a centralized visual analysis platform that helps investigators explore these relationships more efficiently.
+
+---
+
+## 💡 Proposed Solution
+
+NEXORA combines AI-assisted entity and relationship extraction with graph-based analysis.
+
+### Workflow
+
+```text
+Data Input
+    ↓
+Data Cleaning
+    ↓
+AI / NLP Processing
+    ↓
+Entity & Relationship Extraction
+    ↓
+Graph Database
+    ↓
+Graph + AI Analytics
+    ↓
+Pattern Detection
+    ↓
+Interactive Investigation Dashboard
+    ↓
+Investigator Verification

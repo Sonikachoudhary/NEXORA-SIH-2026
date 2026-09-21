@@ -10,7 +10,6 @@ const graphData = {
     { id: "C-087", label: "Case C-087", type: "case" },
     { id: "Location Y", label: "Location Y", type: "location" }
   ],
-
   links: [
     { source: "C-102", target: "Person A", label: "Associated With" },
     { source: "C-102", target: "Person B", label: "Associated With" },
@@ -22,16 +21,13 @@ const graphData = {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [activeSection, setActiveSection] =
-    useState("Dashboard");
-
+  const [activeSection, setActiveSection] = useState("Dashboard");
   const [search, setSearch] = useState("");
   const [result, setResult] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [aiQuestion, setAiQuestion] = useState("");
 
   const menuItems = [
     "Dashboard",
@@ -41,8 +37,6 @@ function App() {
     "Timeline",
     "Reports"
   ];
-
-  /* ================= LOGIN ================= */
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -59,8 +53,6 @@ function App() {
     setActiveSection("Dashboard");
   };
 
-  /* ================= SEARCH ================= */
-
   const handleSearch = () => {
     if (search.trim() === "") {
       setResult(false);
@@ -71,17 +63,23 @@ function App() {
     }
   };
 
-  /* ================= LOGIN SCREEN ================= */
+  const askAI = () => {
+    if (!aiQuestion.trim()) return;
+
+    alert(
+      "NEXORA AI Assistant Demo\n\n" +
+      "Your question has been received. " +
+      "AI-generated analysis will be connected to investigation data in the full system."
+    );
+
+    setAiQuestion("");
+  };
 
   if (!isLoggedIn) {
     return (
       <div className="login-page">
-
         <div className="login-card">
-
-          <div className="login-logo">
-            NEXORA
-          </div>
+          <div className="login-logo">NEXORA</div>
 
           <p className="login-subtitle">
             Investigation Intelligence Platform
@@ -92,16 +90,13 @@ function App() {
           </div>
 
           <form onSubmit={handleLogin}>
-
             <label>Investigator ID</label>
 
             <input
               type="text"
               placeholder="Enter investigator ID"
               value={username}
-              onChange={(e) =>
-                setUsername(e.target.value)
-              }
+              onChange={(e) => setUsername(e.target.value)}
             />
 
             <label>Password</label>
@@ -110,39 +105,25 @@ function App() {
               type="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              type="submit"
-              className="login-button"
-            >
+            <button type="submit" className="login-button">
               Secure Login
             </button>
-
           </form>
 
           <p className="login-note">
             Demo access: enter any ID and password.
           </p>
-
         </div>
-
       </div>
     );
   }
 
-  /* ================= MAIN APPLICATION ================= */
-
   return (
     <div className="dashboard">
-
-      {/* ================= SIDEBAR ================= */}
-
       <aside className="sidebar">
-
         <h1>NEXORA</h1>
 
         <p className="subtitle">
@@ -150,7 +131,6 @@ function App() {
         </p>
 
         <nav>
-
           {menuItems.map((item) => (
             <button
               key={item}
@@ -168,21 +148,13 @@ function App() {
               {item}
             </button>
           ))}
-
         </nav>
-
       </aside>
-
-      {/* ================= MAIN CONTENT ================= */}
 
       <main className="main-content">
 
-        {/* TOP HEADER */}
-
         <div className="top-header">
-
           <div>
-
             <span className="system-status">
               ● SYSTEM ONLINE
             </span>
@@ -190,25 +162,16 @@ function App() {
             <span className="demo-status">
               SYNTHETIC DEMO DATA
             </span>
-
           </div>
 
           <div className="investigator-area">
-
             <span className="notification">
               🔔
             </span>
 
             <div className="investigator-info">
-
-              <strong>
-                Investigator
-              </strong>
-
-              <span>
-                {username || "Demo User"}
-              </span>
-
+              <strong>Investigator</strong>
+              <span>{username || "Demo User"}</span>
             </div>
 
             <button
@@ -217,31 +180,18 @@ function App() {
             >
               Logout
             </button>
-
           </div>
-
         </div>
-
-        {/* ================================================= */}
-        {/* ================= DASHBOARD ===================== */}
-        {/* ================================================= */}
 
         {activeSection === "Dashboard" && (
           <>
-
             <header>
-
-              <h2>
-                Investigation Dashboard
-              </h2>
+              <h2>Investigation Dashboard</h2>
 
               <p>
                 AI-Powered Criminal Network Analysis System
               </p>
-
             </header>
-
-            {/* ================= STATISTICS ================= */}
 
             <section className="stats">
 
@@ -267,13 +217,8 @@ function App() {
 
             </section>
 
-            {/* ================= SEARCH ================= */}
-
             <section className="panel">
-
-              <h3>
-                Search Investigation Data
-              </h3>
+              <h3>Search Investigation Data</h3>
 
               <input
                 type="text"
@@ -291,9 +236,7 @@ function App() {
               {result && (
                 <div className="case-result">
 
-                  <h3>
-                    Case C-102
-                  </h3>
+                  <h3>Case C-102</h3>
 
                   <p>
                     <strong>Status:</strong>{" "}
@@ -301,13 +244,11 @@ function App() {
                   </p>
 
                   <p>
-                    <strong>Linked Entities:</strong>{" "}
-                    5
+                    <strong>Linked Entities:</strong> 5
                   </p>
 
                   <p>
-                    <strong>Related Cases:</strong>{" "}
-                    2
+                    <strong>Related Cases:</strong> 2
                   </p>
 
                   <button
@@ -363,26 +304,21 @@ function App() {
 
                 </div>
               )}
-
             </section>
-
-            {/* ================= AI INSIGHTS ================= */}
 
             <section className="panel ai-insights">
 
               <div className="insight-header">
 
                 <div>
-
                   <h3>
-                    🤖 AI Investigation Insights
+                    🔎 Investigation Insights
                   </h3>
 
                   <p>
                     Analytical leads identified from
                     synthetic investigation data
                   </p>
-
                 </div>
 
                 <span className="ai-badge">
@@ -394,13 +330,11 @@ function App() {
               <div className="insight-grid">
 
                 <div className="insight-card">
-
                   <span className="insight-icon">
                     🔗
                   </span>
 
                   <div>
-
                     <h4>
                       Cross-Case Connection
                     </h4>
@@ -410,19 +344,15 @@ function App() {
                       between Case C-102 and Case C-087
                       through Vehicle X.
                     </p>
-
                   </div>
-
                 </div>
 
                 <div className="insight-card">
-
                   <span className="insight-icon">
                     🚗
                   </span>
 
                   <div>
-
                     <h4>
                       Repeated Vehicle
                     </h4>
@@ -431,19 +361,15 @@ function App() {
                       Vehicle X appears across multiple
                       synthetic investigation records.
                     </p>
-
                   </div>
-
                 </div>
 
                 <div className="insight-card">
-
                   <span className="insight-icon">
                     👤
                   </span>
 
                   <div>
-
                     <h4>
                       Common Entity
                     </h4>
@@ -452,19 +378,15 @@ function App() {
                       Person B is connected with more
                       than one investigation record.
                     </p>
-
                   </div>
-
                 </div>
 
                 <div className="insight-card">
-
                   <span className="insight-icon">
                     📍
                   </span>
 
                   <div>
-
                     <h4>
                       Shared Location
                     </h4>
@@ -473,24 +395,18 @@ function App() {
                       Location Y appears in multiple
                       relationship records.
                     </p>
-
                   </div>
-
                 </div>
 
               </div>
 
               <div className="verification-note">
-
                 ⚠️ AI-generated insights are analytical
                 leads only. Final verification must be
                 performed by authorized investigators.
-
               </div>
 
             </section>
-
-            {/* ================= PATTERNS ================= */}
 
             <section className="panel">
 
@@ -501,7 +417,6 @@ function App() {
               <div className="patterns">
 
                 <div className="pattern-card">
-
                   <h4>
                     Repeated Vehicle Connection
                   </h4>
@@ -514,11 +429,9 @@ function App() {
                   <span>
                     Review Required
                   </span>
-
                 </div>
 
                 <div className="pattern-card">
-
                   <h4>
                     Common Person Across Cases
                   </h4>
@@ -531,11 +444,9 @@ function App() {
                   <span>
                     Review Required
                   </span>
-
                 </div>
 
                 <div className="pattern-card">
-
                   <h4>
                     Shared Location
                   </h4>
@@ -548,217 +459,233 @@ function App() {
                   <span>
                     Review Required
                   </span>
-
                 </div>
 
               </div>
 
             </section>
 
+            {/* AI ASSISTANT - LAST SECTION */}
+
+            <section className="ai-assistant">
+
+              <div className="ai-assistant-content">
+
+                <div className="ai-robot">
+                  🤖
+                </div>
+
+                <div style={{ flex: 1 }}>
+
+                  <h3>
+                    NEXORA AI Assistant
+
+                    <span className="ai-assistant-badge">
+                      BETA
+                    </span>
+                  </h3>
+
+                  <p>
+                    Ask questions about investigation
+                    data, relationships and patterns.
+                  </p>
+
+                  <div className="ai-input-row">
+
+                    <input
+                      className="ai-input"
+                      type="text"
+                      placeholder="Ask something about the investigation..."
+                      value={aiQuestion}
+                      onChange={(e) =>
+                        setAiQuestion(e.target.value)
+                      }
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          askAI();
+                        }
+                      }}
+                    />
+
+                    <button
+                      className="ai-send"
+                      onClick={askAI}
+                    >
+                      →
+                    </button>
+
+                  </div>
+
+                  <div className="ai-suggestions">
+
+                    <button
+                      onClick={() =>
+                        setAiQuestion(
+                          "Show related cases"
+                        )
+                      }
+                    >
+                      Show related cases
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        setAiQuestion(
+                          "Find common entities"
+                        )
+                      }
+                    >
+                      Find common entities
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        setAiQuestion(
+                          "Explain this pattern"
+                        )
+                      }
+                    >
+                      Explain this pattern
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        setAiQuestion(
+                          "Generate report"
+                        )
+                      }
+                    >
+                      Generate report
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
           </>
         )}
 
-        {/* ================================================= */}
-        {/* ================= CASES ========================= */}
-        {/* ================================================= */}
-
         {activeSection === "Cases" && (
           <>
-
             <header>
-
-              <h2>
-                Cases
-              </h2>
-
-              <p>
-                Investigation case records
-              </p>
-
+              <h2>Cases</h2>
+              <p>Investigation case records</p>
             </header>
 
             <section className="panel">
-
-              <h3>
-                Active Investigation Cases
-              </h3>
+              <h3>Active Investigation Cases</h3>
 
               <div className="related-cases">
 
                 <div className="related-case">
-
-                  <h4>
-                    Case C-102
-                  </h4>
-
+                  <h4>Case C-102</h4>
                   <p>
                     Status: Under Investigation
                   </p>
-
                   <span>
                     5 Linked Entities
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
-                  <h4>
-                    Case C-087
-                  </h4>
-
+                  <h4>Case C-087</h4>
                   <p>
                     Status: Under Review
                   </p>
-
                   <span>
                     3 Linked Entities
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
-                  <h4>
-                    Case C-115
-                  </h4>
-
+                  <h4>Case C-115</h4>
                   <p>
                     Status: Under Investigation
                   </p>
-
                   <span>
                     4 Linked Entities
                   </span>
-
                 </div>
 
               </div>
-
             </section>
-
           </>
         )}
 
-        {/* ================================================= */}
-        {/* ================= ENTITIES ====================== */}
-        {/* ================================================= */}
-
         {activeSection === "Entities" && (
           <>
-
             <header>
-
-              <h2>
-                Entities
-              </h2>
+              <h2>Entities</h2>
 
               <p>
                 People, vehicles, locations and cases
               </p>
-
             </header>
 
             <section className="panel">
-
-              <h3>
-                Entity Records
-              </h3>
+              <h3>Entity Records</h3>
 
               <div className="related-cases">
 
                 <div className="related-case">
-
-                  <h4>
-                    Person A
-                  </h4>
-
+                  <h4>Person A</h4>
                   <p>
                     Entity Type: Person
                   </p>
-
                   <span>
                     Linked to Case C-102
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
-                  <h4>
-                    Person B
-                  </h4>
-
+                  <h4>Person B</h4>
                   <p>
                     Entity Type: Person
                   </p>
-
                   <span>
                     Linked to 2 Cases
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
-                  <h4>
-                    Vehicle X
-                  </h4>
-
+                  <h4>Vehicle X</h4>
                   <p>
                     Entity Type: Vehicle
                   </p>
-
                   <span>
                     Linked to C-102 and C-087
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
-                  <h4>
-                    Location Y
-                  </h4>
-
+                  <h4>Location Y</h4>
                   <p>
                     Entity Type: Location
                   </p>
-
                   <span>
                     Linked to Person B
                   </span>
-
                 </div>
 
               </div>
-
             </section>
-
           </>
         )}
 
-        {/* ================================================= */}
-        {/* ================ NETWORK ANALYSIS =============== */}
-        {/* ================================================= */}
-
         {activeSection === "Network Analysis" && (
           <>
-
             <header>
-
-              <h2>
-                Network Analysis
-              </h2>
+              <h2>Network Analysis</h2>
 
               <p>
                 Interactive relationship network
               </p>
-
             </header>
 
             <section className="panel">
-
               <h3>
                 Entity Relationship Graph
               </h3>
@@ -778,8 +705,7 @@ function App() {
                     globalScale
                   ) => {
 
-                    const label =
-                      node.label;
+                    const label = node.label;
 
                     const fontSize =
                       12 / globalScale;
@@ -799,21 +725,17 @@ function App() {
                     ctx.font =
                       `${fontSize}px Arial`;
 
-                    ctx.textAlign =
-                      "center";
-
-                    ctx.textBaseline =
-                      "middle";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
 
                     ctx.fillStyle =
-                      "#ffffff";
+                      "#334155";
 
                     ctx.fillText(
                       label,
                       node.x,
                       node.y + 14
                     );
-
                   }}
 
                   linkCanvasObject={(
@@ -822,11 +744,8 @@ function App() {
                     globalScale
                   ) => {
 
-                    const start =
-                      link.source;
-
-                    const end =
-                      link.target;
+                    const start = link.source;
+                    const end = link.target;
 
                     if (
                       !start ||
@@ -852,26 +771,20 @@ function App() {
                       `${fontSize}px Arial`;
 
                     ctx.fillStyle =
-                      "#94a3b8";
+                      "#64748b";
 
-                    ctx.textAlign =
-                      "center";
-
-                    ctx.textBaseline =
-                      "middle";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
 
                     ctx.fillText(
                       link.label,
                       x,
                       y
                     );
-
                   }}
-
                 />
 
               </div>
-
             </section>
 
             <section className="panel">
@@ -892,27 +805,17 @@ function App() {
               </p>
 
             </section>
-
           </>
         )}
 
-        {/* ================================================= */}
-        {/* ================= TIMELINE ====================== */}
-        {/* ================================================= */}
-
         {activeSection === "Timeline" && (
           <>
-
             <header>
-
-              <h2>
-                Timeline Analysis
-              </h2>
+              <h2>Timeline Analysis</h2>
 
               <p>
                 Chronological investigation events
               </p>
-
             </header>
 
             <section className="panel">
@@ -920,77 +823,47 @@ function App() {
               <div className="timeline">
 
                 <div className="timeline-item">
-
-                  <span>
-                    10 Jan 2026
-                  </span>
-
+                  <span>10 Jan 2026</span>
                   <p>
                     Initial case report created
                   </p>
-
                 </div>
 
                 <div className="timeline-item">
-
-                  <span>
-                    14 Jan 2026
-                  </span>
-
+                  <span>14 Jan 2026</span>
                   <p>
                     Person A identified
                   </p>
-
                 </div>
 
                 <div className="timeline-item">
-
-                  <span>
-                    18 Jan 2026
-                  </span>
-
+                  <span>18 Jan 2026</span>
                   <p>
                     Vehicle X linked to the investigation
                   </p>
-
                 </div>
 
                 <div className="timeline-item">
-
-                  <span>
-                    22 Jan 2026
-                  </span>
-
+                  <span>22 Jan 2026</span>
                   <p>
                     Related Case C-087 detected
                   </p>
-
                 </div>
 
               </div>
 
             </section>
-
           </>
         )}
 
-        {/* ================================================= */}
-        {/* ================= REPORTS ======================= */}
-        {/* ================================================= */}
-
         {activeSection === "Reports" && (
           <>
-
             <header>
-
-              <h2>
-                Reports
-              </h2>
+              <h2>Reports</h2>
 
               <p>
                 Investigation analysis reports
               </p>
-
             </header>
 
             <section className="panel">
@@ -1002,7 +875,6 @@ function App() {
               <div className="related-cases">
 
                 <div className="related-case">
-
                   <h4>
                     Case Network Report
                   </h4>
@@ -1015,11 +887,9 @@ function App() {
                   <span>
                     Demo Report
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
                   <h4>
                     Pattern Analysis Report
                   </h4>
@@ -1032,11 +902,9 @@ function App() {
                   <span>
                     Demo Report
                   </span>
-
                 </div>
 
                 <div className="related-case">
-
                   <h4>
                     Timeline Report
                   </h4>
@@ -1049,7 +917,6 @@ function App() {
                   <span>
                     Demo Report
                   </span>
-
                 </div>
 
               </div>
@@ -1070,12 +937,10 @@ function App() {
               </p>
 
             </section>
-
           </>
         )}
 
       </main>
-
     </div>
   );
 }
